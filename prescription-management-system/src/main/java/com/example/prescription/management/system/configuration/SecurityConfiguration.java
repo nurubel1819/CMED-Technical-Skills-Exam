@@ -40,6 +40,7 @@ public class SecurityConfiguration {
     };
     public static final String[] PUBLIC_URLS = {
             "/",
+            "/registration-doctor",
             "/public/**",
             "/css/**",
             "/image/**",
