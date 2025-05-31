@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Create an account</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" th:href="@{/css/BasicCss.css}">
+</head>
+<body>
+<div class="container">
+  <div th:if="${param.message}" class="alert-box" th:text="${param.message}"></div>
+  <h2>Create a Patient Account</h2>
+  <form th:action="@{/registration-patient}" method="post" th:object="${PatientRegistration}" enctype="multipart/form-data">
+
+    <input type="text" th:field="*{patientName}" placeholder="Full Name" required>
+    <input type="text" th:field="*{patientPhone}" placeholder="Phone Number" required>
+    <input type="text" th:field="*{patientEmail}" placeholder="Email Address">
+    <input type="date" th:field="*{patientBirthDate}" placeholder="Date of Birth" required>
+
+    <select th:field="*{patientGender}" required>
+      <option value="" disabled selected>Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <textarea th:field="*{patientAddress}" placeholder="Address"></textarea>
+    <textarea th:field="*{patientDiseaseHistory}" placeholder="Disease History" required></textarea>
+
+    <input type="password" th:field="*{patientPassword}" placeholder="Password">
+    <input type="password" th:field="*{patientConfirmPassword}" placeholder="Confirm password">
+
+    <div class="btn-group">
+      <button type="submit" class="custom-submit-button">Register</button>
+    </div>
+  </form>
+
+  <p class="link-style">already have an account? <a th:href="@{/login}">Login</a></p>
+</div>
+
+</body>
+</html>

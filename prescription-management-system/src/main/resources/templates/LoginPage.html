@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/BasicCss.css}">
+</head>
+<body>
+<div class="container-login">
+    <div th:if="${param.message}" class="alert-box" th:text="${param.message}"></div>
+    <!--<img th:src="@{/images/cmed_img.jpg}" alt="Logo" class="logo">-->
+    <h2>Log in to your account</h2>
+    <form th:action="@{/login}" method="post" th:object="${SignInRequestDto}">
+        <label >Mobile Number</label>
+        <label>
+            <input type="text" th:field="*{phone}" placeholder="Enter Phone Number" required>
+        </label>
+        <label >Password</label>
+        <label>
+            <input type="password" th:field="*{password}" placeholder="Enter Password" required>
+        </label>
+        <button type="submit" class="custom-submit-button">Login</button>
+    </form>
+    <p class="link-style">Don’t have an account? <a th:href="@{/registration-doctor}">Register</a></p>
+    <p class="link-style">Home page = <a th:href="@{/}">HOME</a></p>
+    <p class="text-info">
+        Default User(Doctor) = Phone: 01753278407 password: 123 <br>
+        Default Admin = Phone: 01753278408 password: 123
+    </p>
+</div>
+</body>
+</html>

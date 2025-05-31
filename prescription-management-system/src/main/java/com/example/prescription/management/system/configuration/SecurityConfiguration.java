@@ -41,12 +41,13 @@ public class SecurityConfiguration {
     public static final String[] PUBLIC_URLS = {
             "/",
             "/registration-doctor",
+            "/registration-patient",
+            "/login",
             "/public/**",
             "/css/**",
-            "/image/**",
+            "/images/**",
             "/uploads/**",
             "/registration",
-            "/login",
             "/user-logout",
     };
 

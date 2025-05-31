@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 public class DoctorRegistrationDto {
@@ -23,4 +24,7 @@ public class DoctorRegistrationDto {
     private String confirmPassword;
     @Schema(hidden = true)
     private MultipartFile imageFile;
+
+    @Schema(hidden = true)
+    private Set<String> roles;
 }

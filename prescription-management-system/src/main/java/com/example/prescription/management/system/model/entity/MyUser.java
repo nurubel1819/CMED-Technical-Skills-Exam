@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +23,22 @@ public class MyUser {
     @Column(unique = true, nullable = false)
     private String phone;
     private String password;
+
+    // for patient info
+    private String name;
+    @Column(unique = true)
+    private String email;
+    private LocalDate birthday;
+    private String gender;
+    private String diagnosis;
+    private String address;
+    private String diseaseHistory;
+
+    //for doctor info
+    private String specialization;
+    private String experience;
+    private String qualification;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
             name = "user_roles_map", // মাঝখানের টেবিলের নাম

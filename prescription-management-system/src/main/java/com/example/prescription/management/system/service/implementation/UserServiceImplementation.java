@@ -17,17 +17,8 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public MyUser saveUser(MyUser user) {
-        if(userRepository.findByPhone(user.getPhone()).isPresent()){
-            return null;
-        }
+        if(userRepository.findByPhone(user.getPhone()).isPresent()) return null;
         try {
-            Role role = roleService.findRoleByName("USER");
-            if(role==null){
-                role = new Role();
-                role.setName("USER");
-                role = roleService.addRole(role);
-            }
-            user.getRoles().add(role);
             return userRepository.save(user);
         }catch (Exception e) {
             return null;

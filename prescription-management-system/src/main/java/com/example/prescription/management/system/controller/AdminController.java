@@ -33,9 +33,7 @@ public class AdminController {
 
     @PostMapping("/add-new-role")
     public ResponseEntity<?> addNewRole(@RequestBody RoleDto dto) {
-        Role role = new Role();
-        role.setName(dto.getName());
-        role = roleService.addRole(role);
+        Role role = roleService.addRole(dto.getName());
         if(role != null) {return ResponseEntity.ok(role);}
         else {return ResponseEntity.badRequest().body(Map.of("message", "Role not added"));}
     }

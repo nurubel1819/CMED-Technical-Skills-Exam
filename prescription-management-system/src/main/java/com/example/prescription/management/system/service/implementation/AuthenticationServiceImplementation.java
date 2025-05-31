@@ -24,23 +24,22 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
     private final JwtUtils jwtUtils;
     private final PasswordEncoder passwordEncoder;
     private final RoleService roleService;
-    private final AdminService adminService;
 
     @Override
-    public MyUser sinUp(MyUser user){
+    public MyUser sinUp(MyUser user,String defaultRole){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         MyUser saveUser = userService.saveUser(user);
+        if(saveUser == null) return null;
+        saveUser = roleService.setUserRole(saveUser, defaultRole);
         if(saveUser.getId()==1L) // here make first user is admin
         {
             Role role = roleService.findRoleByName("ADMIN");
             if(role==null)
             {
-                role = new Role();
-                role.setName("ADMIN");
-                role = roleService.addRole(role);
-                saveUser = adminService.setUserNewRole(saveUser,role);
+                role = roleService.addRole("admin");
+                saveUser = roleService.setUserRole(saveUser,role.getName());
             }
-            else saveUser = adminService.setUserNewRole(saveUser,role);
+            else saveUser = roleService.setUserRole(saveUser,role.getName());
         }
         return saveUser;
     }

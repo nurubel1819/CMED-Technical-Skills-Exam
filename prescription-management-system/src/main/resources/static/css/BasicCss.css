@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     padding: 20px;
-    background: #021301;
+    background: white;
 }
 .alert-box {
     background-color: #f8d7da;
@@ -12,8 +12,17 @@ body {
     margin-bottom: 20px;
     font-weight: bold;
 }
+/* ----------------------------------- all container --------------------------------------------*/
 .container {
     max-width: 800px;
+    margin: auto;
+    background: #0fefd1;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.container-login {
+    max-width: 600px;
     margin: auto;
     background: #0fefd1;
     padding: 25px;
@@ -23,15 +32,15 @@ body {
 .logo {
     display: block;
     margin: 0 auto 20px;
-    width: 100px;
+    width: 300px;
 }
 
 h2 {
     text-align: center;
     color: #333;
 }
-
-input[type=text], input[type=password], input[type=email], input[type=date],select {
+/* ----------------------------------- Input ------------------------------------------*/
+input[type=text],input[type = number],input[type=password],input[type=email],input[type=date],select {
     width: calc(100% - 20px); /* যেন margin যোগ করেও container এর বাইরে না যায় */
     padding: 12px;
     margin: 5px 5px 5px 5px; /* top: 10px, right: 10px, bottom: 20px, left: 10px */
@@ -39,7 +48,15 @@ input[type=text], input[type=password], input[type=email], input[type=date],sele
     border-radius: 5px;
     box-sizing: border-box;
 }
-
+textarea {
+    width: calc(100% - 20px); /* যেন margin যোগ করেও container এর বাইরে না যায় */
+    padding: 12px;
+    margin: 5px 5px 5px 5px; /* top: 10px, right: 10px, bottom: 20px, left: 10px */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: vertical;
+}
 
 .btn-group {
     display: flex;
@@ -89,7 +106,8 @@ input[type=text], input[type=password], input[type=email], input[type=date],sele
 }
 /*---------------------------------------- Custom submit button -----------------------------*/
 .custom-submit-button {
-    background-color: #c8460e;     /* সবুজ বাটনের জন্য */
+    margin-top: 20px;
+    background-color: #070acf;
     color: white;
     padding: 14px 28px;
     font-size: 16px;
@@ -97,17 +115,40 @@ input[type=text], input[type=password], input[type=email], input[type=date],sele
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    width: 100%;                   /* চাইলে 100% না দিয়ে auto দিতে পারেন */
+    width: 100%;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .custom-submit-button:hover {
-    background-color: #6c06a3;
-    transform: scale(1.02); /* হালকা zoom effect */
+    background-color: #c8460e;
+    transform: scale(1.02); /*  zoom effect */
 }
 
 .custom-submit-button:active {
     background-color: #f60404;
     transform: scale(0.98);
+}
+/*---------------------------------------------- Link style --------------------------------------*/
+.link-style {
+    text-align: center;
+    font-size: 16px;
+    color: #f60404;
+    margin-top: 15px;
+    font-weight: 500;
+}
+.link-style:hover {
+    color: #6c06a3;
+}
+/* ----------------------------------------------- Text or Information ---------------------------*/
+.text-info {
+    background-color: #fff3cd;
+    color: #070acf;
+    padding: 12px 20px;
+    border: 1px solid #ffeeba;
+    border-radius: 6px;
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: left;
 }
