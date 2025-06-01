@@ -8,8 +8,10 @@
 </head>
 <body>
 <div class="container-login">
-    <div th:if="${param.message}" class="alert-box" th:text="${param.message}"></div>
-    <!--<img th:src="@{/images/cmed_img.jpg}" alt="Logo" class="logo">-->
+    <div th:if="${param.message}"
+         th:text="${param.message[0]}"
+         th:class="'alert-box ' + (${param.message[0].contains('successful')} ? 'alert-success' : 'alert-error')">
+    </div>
     <h2>Log in to your account</h2>
     <form th:action="@{/login}" method="post" th:object="${SignInRequestDto}">
         <label >Mobile Number</label>

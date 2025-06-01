@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -46,4 +48,7 @@ public class MyUser {
             inverseJoinColumns = @JoinColumn(name = "role_id") // অপর entity এর কলাম
     )
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Prescription> prescriptions = new ArrayList<>();
 }

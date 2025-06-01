@@ -13,6 +13,7 @@ public class PatientMapper {
         user.setPhone(dto.getPatientPhone());
         user.setPassword(dto.getPatientPassword());
         user.setName(dto.getPatientName());
+        if(dto.getPatientEmail().isEmpty()) dto.setPatientEmail(null);
         user.setEmail(dto.getPatientEmail());
         user.setBirthday(dto.getPatientBirthDate());
         user.setGender(dto.getPatientGender());

@@ -3,15 +3,29 @@ body {
     padding: 20px;
     background: white;
 }
+/* ----------------------------------- Alert And Success Message --------------------------------------------*/
 .alert-box {
-    background-color: #f8d7da;
-    color: #721c24;
     padding: 12px 20px;
-    border: 1px solid #f5c6cb;
     border-radius: 6px;
     margin-bottom: 20px;
     font-weight: bold;
+    border: 1px solid;
 }
+
+/* Error Message */
+.alert-error {
+    background-color: #f60404;
+    color: white;
+    border-color: orange;
+}
+
+/* Success Message */
+.alert-success {
+    background-color: #0fec08;
+    color: white;
+    border-color: #c8460e;
+}
+
 /* ----------------------------------- all container --------------------------------------------*/
 .container {
     max-width: 800px;
@@ -29,6 +43,54 @@ body {
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
+.container-dashboard {
+    margin: auto;
+    padding: 20px;
+}
+/* ----------------------------------- Dashboard Header --------------------------------------------*/
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #00695c;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+.header-component {
+    margin-left: 15px;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+/* ----------------------------------- Dashboard Options --------------------------------------------*/
+.dashboard-options {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.option-card {
+    background-color: #3e045e;
+    border: 1px solid #ddd;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.option-card:hover {
+    background-color: orange;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    color: white;
+}
+/* ----------------------------------- Logo --------------------------------------------*/
 .logo {
     display: block;
     margin: 0 auto 20px;
@@ -140,6 +202,46 @@ textarea {
 .link-style:hover {
     color: #6c06a3;
 }
+.link-button {
+    display: inline-block;
+    padding: 10px 18px;
+    background-color: #007BFF;      /* Bootstrap primary blue */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.link-button:hover {
+    background-color: #550210;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    color: #fff;
+}
+.link-button-logout {
+    display: inline-block;
+    padding: 10px 18px;
+    background-color: #f60404;      /* Bootstrap primary blue */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.link-button-logout:hover {
+    background-color: orange;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    color: #fff;
+}
+
+
 /* ----------------------------------------------- Text or Information ---------------------------*/
 .text-info {
     background-color: #fff3cd;
@@ -152,3 +254,8 @@ textarea {
     line-height: 1.6;
     text-align: left;
 }
+.user-name {
+    color: white;
+    font-weight: bold;
+}
+

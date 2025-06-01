@@ -18,14 +18,12 @@ public class SecurityConfiguration {
 
     @Autowired
     JwtAuthFilter jwtAuthFilter;
-    public static final String[] USER_ROLES = {
-            "/user/**",
-    };
+
     public static final String[] ADMIN_URLS = {
             "/admin/**",
     };
     public static final String[] PATIENT_URLS = {
-            "/users/**",
+            "/patient/**",
     };
     public static final String[] DOCTOR_URLS = {
             "/doctor/**"
@@ -58,8 +56,7 @@ public class SecurityConfiguration {
         http.
                 csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(USER_ROLES).hasAnyRole("USER")
-                        .requestMatchers(PATIENT_URLS).hasAnyRole("USER","ADMIN")
+                        .requestMatchers(PATIENT_URLS).hasAnyRole("PATIENT","ADMIN")
                         .requestMatchers(ADMIN_URLS).hasAnyRole("ADMIN")
                         .requestMatchers(DOCTOR_URLS).hasAnyRole("DOCTOR","ADMIN")
                         .requestMatchers(PUBLIC_URLS).permitAll()
@@ -67,11 +64,11 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                /*.exceptionHandling(ex -> ex
+                .exceptionHandling(ex -> ex
                         .authenticationEntryPoint((request, response, authException) -> {
                             response.sendRedirect("/login");
                         })
-                )*/
+                )
         ;
         return http.build();
     }

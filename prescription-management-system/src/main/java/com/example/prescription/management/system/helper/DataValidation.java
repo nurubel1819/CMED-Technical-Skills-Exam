@@ -32,5 +32,11 @@ public class DataValidation {
     public boolean isValidBirthDate(LocalDate date) {
         return date != null && date.isBefore(LocalDate.now());
     }
+    public boolean isDateToday(LocalDate inputDate) {
+        return inputDate != null && inputDate.equals(LocalDate.now());
+    }
+    public boolean isValidFutureDate(LocalDate date) {
+        return date != null && date.isAfter(LocalDate.now());
+    }
 
 }

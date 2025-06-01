@@ -9,7 +9,11 @@
 <body>
 
 <div class="container">
-    <div th:if="${param.message}" class="alert-box" th:text="${param.message}"></div>
+    <div th:if="${param.message}"
+         th:text="${param.message[0]}"
+         th:class="'alert-box ' + (${param.message[0].contains('successful')} ? 'alert-success' : 'alert-error')">
+    </div>
+
     <h2>Create a Doctor account</h2>
     <form th:action="@{/registration-doctor}" method="post" th:object="${DoctorRegistration}" enctype="multipart/form-data">
         <input type="text" th:field="*{doctorName}" placeholder="Full Name" required>
@@ -24,12 +28,12 @@
         </select>
         <input type="date" th:field="*{dateOfBirth}" placeholder="Date of Birth" required>
         <input type="text" th:field="*{specialization}" placeholder="Specialization" required>
-        <input type="text" th:field="*{experience}" placeholder="Experience" required>
+        <input type="text" th:field="*{experience}" placeholder="Experience Example : 10 year" required>
         <input type="text" th:field="*{qualification}" placeholder="Qualification" required>
         <input type="password" th:field="*{password}" placeholder="Password" required>
         <input type="password" th:field="*{confirmPassword}" placeholder="Confirm Password" required>
-        <label for="image">User Image</label>
-        <input class="image-upload" type="file" id="image" name="imageFile" accept="image/*">
+        <!--<label for="image">User Image</label>
+        <input class="image-upload" type="file" id="image" name="imageFile" accept="image/*">-->
 
         <div class="btn-group">
             <button type="submit" class="custom-submit-button">Register</button>

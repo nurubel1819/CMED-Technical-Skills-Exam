@@ -14,6 +14,7 @@ public class DoctorMapper {
         user.setPhone(dto.getDoctorPhone());
         user.setPassword(dto.getPassword());
         user.setName(dto.getDoctorName());
+        if(dto.getDoctorEmail().isEmpty()) dto.setDoctorEmail(null);
         user.setEmail(dto.getDoctorEmail());
         user.setBirthday(dto.getDateOfBirth());
         user.setGender(dto.getDoctorGender());

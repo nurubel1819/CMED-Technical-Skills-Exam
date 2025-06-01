@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Patient Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/BasicCss.css}">
+</head>
+<body>
+
+<div class="container-dashboard">
+    <!-- Header -->
+    <header class="dashboard-header">
+        <h2><span class="user-name" th:text="'Welcome, Patient '+${patientName}">Doctor Name</span></h2>
+        <div class="header-component">
+            <a class="link-button" th:href="@{/patient/account}">My Account</a>
+            <a class="link-button-logout" th:href="@{/user-logout}">Logout</a>
+        </div>
+    </header>
+
+    <!-- Options Section -->
+    <div class="dashboard-options">
+        <a th:href="@{/patient/see-hospital-infomation}" class="option-card"> hospital inofrmation </a>
+    </div>
+</div>
+
+</body>
+</html>

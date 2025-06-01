@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Doctor Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/BasicCss.css}">
+</head>
+<body>
+
+<div class="container-dashboard">
+    <!-- Header -->
+    <header class="dashboard-header">
+        <h2><span class="user-name" th:text="'Welcome, Doctor '+${doctorName}">Doctor Name</span></h2>
+        <div class="header-component">
+            <a class="link-button" th:href="@{/doctor/account}">My Account</a>
+            <a class="link-button-logout" th:href="@{/user-logout}">Logout</a>
+        </div>
+    </header>
+
+    <!-- Options Section -->
+    <div class="dashboard-options">
+        <a th:href="@{/doctor/appointments}" class="option-card">My Prescriptions </a>
+        <a th:href="@{/doctor/write-prescription}" class="option-card">Write New Prescription</a>
+        <a th:href="@{/doctor/report}" class="option-card">Day-wise prescription count </a>
+    </div>
+</div>
+
+</body>
+</html>
