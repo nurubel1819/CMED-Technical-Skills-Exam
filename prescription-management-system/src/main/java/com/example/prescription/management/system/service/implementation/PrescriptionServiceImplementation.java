@@ -34,6 +34,16 @@ public class PrescriptionServiceImplementation implements PrescriptionService {
     }
 
     @Override
+    public Prescription updatePrescription(Prescription prescription) {
+        try {
+            return prescriptionRepository.save(prescription);
+        }catch (Exception e){
+            System.out.println("Exception from PrescriptionServiceImplementation.updatePrescription = "+e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
     public Prescription findPrescriptionById(Long id) {
         return prescriptionRepository.findById(id).orElse(null);
     }
@@ -60,9 +70,19 @@ public class PrescriptionServiceImplementation implements PrescriptionService {
     }
 
     @Override
-    public List<Prescription> findAllPrescriptionsBetweenDateRange(LocalDate startDate, LocalDate endDate) {
+    public List<Prescription> findAllPrescriptionBetweenDate(LocalDate startDate, LocalDate endDate) {
         try {
-            return prescriptionRepository.findAllByPrescriptionDateBetween(startDate, endDate);
+            return prescriptionRepository.findAllByPrescriptionDateBetween(startDate,endDate);
+        }catch (Exception e) {
+            System.out.println("Exception from PrescriptionServiceImplementation.findAllPrescriptionBetweenDate = "+e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<Prescription> findOneDoctorAllPrescriptionInDateRange(MyUser doctor,LocalDate startDate, LocalDate endDate) {
+        try {
+            return prescriptionRepository.findByDoctorAndPrescriptionDateBetween(doctor,startDate,endDate);
         }catch (Exception e) {
             System.out.println("Exception from PrescriptionServiceImplementation.findAllPrescriptionsBetweenDateRange = "+e.getMessage());
             return null;
