@@ -13,7 +13,7 @@
     <header class="dashboard-header">
         <h2><span class="user-name" th:text="'Welcome, Doctor '+${doctorName}">Doctor Name</span></h2>
         <div class="header-component">
-            <a class="link-button" th:href="@{/doctor/account}">My Account</a>
+            <a class="link-button" th:href="@{/doctor/edit-personal-information}">My Account</a>
             <a class="link-button-logout" th:href="@{/user-logout}">Logout</a>
         </div>
     </header>
@@ -22,7 +22,9 @@
     <div class="dashboard-options">
         <a th:href="@{/doctor/my-prescriptions}" class="option-card">My Prescriptions </a>
         <a th:href="@{/doctor/write-prescription}" class="option-card">Write New Prescription</a>
-        <a th:href="@{/doctor/report}" class="option-card">Day-wise prescription count </a>
+        <a th:href="@{/doctor/prescription-report}" class="option-card">Report Day-wise prescription count </a>
+        <a th:href="@{/doctor/get-prescription-list}" class="option-card">API to get the prescription list </a>
+        <a th:href="@{/doctor/consume-get-api}" class="option-card">Consume Api </a>
     </div>
 </div>
 

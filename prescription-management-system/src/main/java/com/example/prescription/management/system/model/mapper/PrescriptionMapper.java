@@ -19,6 +19,7 @@ public class PrescriptionMapper {
     }
     public PrescriptionDto mapToDto(Prescription prescription) {
         PrescriptionDto dto = new PrescriptionDto();
+        dto.setPrescriptionId(prescription.getPrescriptionId());
         dto.setPrescriptionDate(prescription.getPrescriptionDate());
         dto.setPatientName(prescription.getPatientName());
         dto.setPatientAge(prescription.getPatientAge());

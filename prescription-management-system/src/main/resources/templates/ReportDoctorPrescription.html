@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Doctor Prescriptions Report</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/PrescriptionTableCss.css}">
+</head>
+<body>
+<div class="container-table">
+    <div th:if="${param.message}" class="alert-box" th:text="${param.message}"></div>
+    <h2>My Prescriptions Report</h2>
+
+    <!-- Table -->
+    <table>
+        <thead>
+        <tr>
+            <th>Prescription Date</th>
+            <th>Prescription Count</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="prescription : ${myPrescriptionsReport}">
+            <td th:text="${prescription.date}"></td>
+            <td th:text="${prescription.count}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -25,4 +25,32 @@ public class DoctorMapper {
 
         return user;
     }
+    public DoctorRegistrationDto mapToDto(MyUser user)
+    {
+        DoctorRegistrationDto dto = new DoctorRegistrationDto();
+        dto.setDoctorId(dto.getDoctorId());
+        dto.setDoctorPhone(user.getPhone());
+        dto.setPassword(user.getPassword());
+        dto.setDoctorName(user.getName());
+        dto.setDoctorEmail(user.getEmail());
+        dto.setDateOfBirth(user.getBirthday());
+        dto.setDoctorGender(user.getGender());
+        dto.setDoctorAddress(user.getAddress());
+        dto.setSpecialization(user.getSpecialization());
+        dto.setExperience(user.getExperience());
+        dto.setQualification(user.getQualification());
+        return dto;
+    }
+    public MyUser mapToUpdateEntity(MyUser user, DoctorRegistrationDto dto)
+    {
+        user.setName(dto.getDoctorName());
+        user.setBirthday(dto.getDateOfBirth());
+        user.setGender(dto.getDoctorGender());
+        user.setAddress(dto.getDoctorAddress());
+        user.setSpecialization(dto.getSpecialization());
+        user.setExperience(dto.getExperience());
+        user.setQualification(dto.getQualification());
+
+        return user;
+    }
 }

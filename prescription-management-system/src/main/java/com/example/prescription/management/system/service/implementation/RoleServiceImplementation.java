@@ -8,6 +8,9 @@ import com.example.prescription.management.system.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class RoleServiceImplementation implements RoleService {
@@ -46,6 +49,21 @@ public class RoleServiceImplementation implements RoleService {
             return userRepository.save(user);
         }catch (Exception e) {
             System.out.println("Exception form RoleServiceImplementation.setUserRole = "+e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<String> getAllSystemRole() {
+        try {
+            List<Role> roles = roleRepository.findAll();
+            List<String> allRoleName = new ArrayList<>();
+            for (Role role : roles) {
+                allRoleName.add(role.getName());
+            }
+            return allRoleName;
+        }catch (Exception e) {
+            System.out.println("Exception form RoleServiceImplementation.getAllSystemRole = "+e.getMessage());
             return null;
         }
     }

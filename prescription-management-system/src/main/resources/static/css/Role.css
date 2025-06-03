@@ -1,0 +1,102 @@
+/* Default style for all roles */
+.role-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 5px;
+    color: white;
+    background-color: #021301; /* Default color */
+}
+
+/* Specific colors for known roles */
+.role-badge.admin {
+    background-color: #d32f2f;
+}
+.role-badge.doctor {
+    background-color: #7a2d5f;
+}
+.role-badge.user {
+    background-color: #0fec08;
+}
+
+.alert-box {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px 20px;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #74ebd5, #acb6e5);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.form-container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #444;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.btn {
+    width: 100%;
+    background-color: #1976d2;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #135ba1;
+}
+
+.back-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.back-link a {
+    text-decoration: none;
+    color: #f60404;
+    font-weight: bold;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}

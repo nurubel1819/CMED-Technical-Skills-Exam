@@ -36,4 +36,14 @@ public class UserServiceImplementation implements UserService {
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
+
+    @Override
+    public MyUser updateUser(MyUser user) {
+        try {
+            return userRepository.save(user);
+        }catch (Exception e) {
+            System.out.println("Exception from UserServiceImplementation.updateUser = "+e.getMessage());
+            return null;
+        }
+    }
 }

@@ -1,12 +1,17 @@
 package com.example.prescription.management.system.helper;
 
+import com.example.prescription.management.system.jwt.JwtUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.regex.Pattern;
 
 @Component
+@RequiredArgsConstructor
 public class DataValidation {
+    private final JwtUtils jwtUtils;
     // regex for email
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
     // regex for BD phone number
@@ -38,5 +43,10 @@ public class DataValidation {
     public boolean isValidFutureDate(LocalDate date) {
         return date != null && date.isAfter(LocalDate.now());
     }
-
+    public boolean validUserRole(String role,String jwt) {
+        List<String> roles = jwtUtils.extractRoles(jwt);
+        for(String roleName : roles) {
+            if(roleName.equalsIgnoreCase(role)) return true;
+        }return false;
+    }
 }

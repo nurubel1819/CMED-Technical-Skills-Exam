@@ -33,7 +33,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        System.out.println("Come doFilterInternal");
+        //System.out.println("Come doFilterInternal");
         String token = null;
 
         // Try to get token from Header
@@ -62,7 +62,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (user!=null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             if (jwtUtils.validateToken(token, username)) {
-                System.out.println("Inner auth filter");
+                //System.out.println("Inner auth filter");
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 

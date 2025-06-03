@@ -1,12 +1,14 @@
 package com.example.prescription.management.system.thymeleaf;
 
+import com.example.prescription.management.system.model.dto.*;
+import com.example.prescription.management.system.model.mapper.DoctorMapper;
 import com.example.prescription.management.system.model.mapper.PrescriptionMapper;
 import com.example.prescription.management.system.helper.RegistrationDataValidation;
 import com.example.prescription.management.system.jwt.JwtUtils;
-import com.example.prescription.management.system.model.dto.PrescriptionDto;
-import com.example.prescription.management.system.model.dto.PrescriptionFilterDto;
 import com.example.prescription.management.system.model.entity.MyUser;
 import com.example.prescription.management.system.model.entity.Prescription;
+import com.example.prescription.management.system.repository.PrescriptionRepository;
+import com.example.prescription.management.system.service.ExternalApiService;
 import com.example.prescription.management.system.service.PrescriptionService;
 import com.example.prescription.management.system.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,6 +30,8 @@ public class DoctorThymeleaf {
     private final RegistrationDataValidation validation;
     private final PrescriptionMapper prescriptionMapper;
     private final PrescriptionService prescriptionService;
+    private final ExternalApiService externalApiService;
+    private final DoctorMapper doctorMapper;
 
 
     @GetMapping("/dashboard")
@@ -58,6 +62,7 @@ public class DoctorThymeleaf {
                 filterDto.getEndDate().isAfter(LocalDate.now()))
             return "redirect:/doctor/my-prescriptions?message=Invalid date range. Please check your date range and try again.";
         */
+        if(filterDto == null) filterDto = new PrescriptionFilterDto(LocalDate.now().minusMonths(1), LocalDate.now() );
         System.out.println("data = "+filterDto);
         return loadPrescriptions(filterDto.getStartDate(), filterDto.getEndDate(), model, request);
     }
@@ -97,7 +102,7 @@ public class DoctorThymeleaf {
             //return "EditPrescription";
             return "EditPrescription";
         }catch (Exception e){
-            System.out.println("Exception form Doctor Thymeleaf = "+e.getMessage());
+            System.out.println("Exception form Doctor Thymeleaf get edit mehto = "+e.getMessage());
             return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
         }
     }
@@ -110,7 +115,7 @@ public class DoctorThymeleaf {
             prescription = prescriptionService.updatePrescription(prescription);
             return "redirect:/doctor/my-prescriptions";
         }catch (Exception e){
-            System.out.println("Exception form Doctor Thymeleaf = "+e.getMessage());
+            System.out.println("Exception form Doctor Thymeleaf update prescription = "+e.getMessage());
             return "redirect:/doctor/dashboard?message="+e.getMessage();
         }
     }
@@ -122,7 +127,7 @@ public class DoctorThymeleaf {
             Long userId = jwtUtils.extractUserId(jwt);
             MyUser doctor = userService.findUserById(userId);
             if(doctor != null){
-                System.out.println("delete prescription id = "+prescriptionId);
+                System.out.println("delete prescription id get delete = "+prescriptionId);
                 prescriptionService.deletePrescriptionById(prescriptionId);
                 return "redirect:/doctor/my-prescriptions?message=Prescription deleted successfully";
             }
@@ -157,8 +162,90 @@ public class DoctorThymeleaf {
             }
             else return "redirect:/doctor/write-prescription?message=Server error, Patient not save";
         }catch (Exception e){
-            System.out.println("Exception form Doctor Thymeleaf = "+e.getMessage());
+            System.out.println("Exception form Doctor Thymeleaf write prescription post= "+e.getMessage());
             return "redirect:/doctor/write-prescription?message="+e.getMessage();
+        }
+    }
+    @GetMapping("/prescription-report")
+    public String prescriptionReport(Model model,HttpServletRequest request){
+        try {
+            String token = jwtUtils.getJwtFromCookies(request);
+            if(token!=null) {
+                Long userId = jwtUtils.extractUserId(token);
+                MyUser doctor = userService.findUserById(userId);
+                List<PrescriptionCountPerDayDto> countPerDayDto = prescriptionService.countPrescriptionsByDateForDoctor(doctor);
+                model.addAttribute("myPrescriptionsReport",countPerDayDto);
+                return "ReportDoctorPrescription";
+            }
+            else return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
+        }catch (Exception e) {
+            System.out.println("Exception from Doctor Dashboard = "+e.getMessage());
+            return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
+        }
+    }
+    @GetMapping("/get-prescription-list") //----------------------------- Get doctor All Prescriptions ----------------------
+    public String getPrescriptionList(Model model,HttpServletRequest request){
+        try {
+            String token = jwtUtils.getJwtFromCookies(request);
+            if(token!=null) {
+                Long userId = jwtUtils.extractUserId(token);
+                MyUser doctor = userService.findUserById(userId);
+                List<Prescription> myAllPrescription = prescriptionService.findAllPrescriptionByDoctor(doctor);
+                model.addAttribute("myAllPrescription",myAllPrescription);
+                return "ShowPrescription";
+            }
+            else return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
+        }catch (Exception e) {
+            System.out.println("Exception from Doctor Dashboard = "+e.getMessage());
+            return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
+        }
+    }
+    @GetMapping("/consume-get-api") //--------------------------- Consume REST API ----------------------
+    public String consumeGetApi(Model model,HttpServletRequest request){
+        try {
+            List<ExternalDataDto> externalApiData = externalApiService.getAllPosts();
+            model.addAttribute("externalApiData",externalApiData);
+            return "ExternalApiDataTable";
+        }catch (Exception e){
+            System.out.println("Exception form Doctor Thymeleaf = "+e.getMessage());
+            return "redirect:/user-logout?message=Server error, Prescription not delete";
+        }
+    }
+    @GetMapping("/edit-personal-information") //--------------------------- Edit Personal Information ----------------------
+    public String editPersonalInformation(Model model,HttpServletRequest request){
+        try {
+            String token = jwtUtils.getJwtFromCookies(request);
+            if(token!=null) {
+                Long userId = jwtUtils.extractUserId(token);
+                MyUser doctor = userService.findUserById(userId);
+                DoctorRegistrationDto doctorRegistrationDto = doctorMapper.mapToDto(doctor);
+                model.addAttribute("doctorDto",doctorRegistrationDto);
+                return "EditDoctorInformation";
+            }
+            else return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
+        }catch (Exception e){
+            System.out.println("Exception form Doctor Thymeleaf = "+e.getMessage());
+            return "redirect:/user-logout?message=Server error, Prescription not delete";
+        }
+    }
+    @PostMapping("/edit-personal-information")
+    public String editPersonalInformationPost(@ModelAttribute("DoctorRegistrationDto") DoctorRegistrationDto dto, Model model,HttpServletRequest request){
+        try {
+            String token = jwtUtils.getJwtFromCookies(request);
+            if(token!=null) {
+                Long userId = jwtUtils.extractUserId(token);
+                MyUser doctor = userService.findUserById(userId);
+                doctor = doctorMapper.mapToUpdateEntity(doctor,dto);
+                doctor = userService.updateUser(doctor);
+                if(doctor != null) {
+                    return "redirect:/doctor/dashboard?message=Doctor registration successful";
+                }
+                else return "redirect:/doctor/edit-personal-information?message=Server error, Doctor not save";
+            }
+            else return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
+        }catch (Exception e){
+            System.out.println("Exception form Doctor Thymeleaf = "+e.getMessage());
+            return "redirect:/user-logout?message=Server error, Not update";
         }
     }
 }

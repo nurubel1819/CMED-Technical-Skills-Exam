@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create an account</title>
+    <title>Update Doctor Information</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/BasicCss.css}">
@@ -14,11 +14,11 @@
          th:class="'alert-box ' + (${param.message[0].contains('successful')} ? 'alert-success' : 'alert-error')">
     </div>
 
-    <h2>Create a Doctor account</h2>
-    <form th:action="@{/registration-doctor}" method="post" th:object="${DoctorRegistration}" enctype="multipart/form-data">
+    <h2>Edit Doctor Information</h2>
+    <form th:action="@{/doctor/edit-personal-information}" method="post" th:object="${doctorDto}" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{doctorId}" />
+
         <input type="text" th:field="*{doctorName}" placeholder="Full Name" required>
-        <input type="text" th:field="*{doctorPhone}" placeholder="Phone Number" required>
-        <input type="email" th:field="*{doctorEmail}" placeholder="Email">
         <input type="text" th:field="*{doctorAddress}" placeholder="Address">
         <select type="selection" th:field="*{doctorGender}" required>
             <option value="" disabled selected>Select Gender</option>
@@ -26,18 +26,15 @@
             <option value="Female">Female</option>
             <option value="Other">Other</option>
         </select>
-        <input type="date" th:field="*{dateOfBirth}" placeholder="Date of Birth" required>
+        <input type="date" id="dateOfBirth" name="dateOfBirth" th:value="${doctorDto.dateOfBirth}" required>
         <input type="text" th:field="*{specialization}" placeholder="Specialization" required>
         <input type="text" th:field="*{experience}" placeholder="Experience Example : 10 year" required>
         <input type="text" th:field="*{qualification}" placeholder="Qualification" required>
-        <input type="password" th:field="*{password}" placeholder="Password" required>
-        <input type="password" th:field="*{confirmPassword}" placeholder="Confirm Password" required>
 
         <div class="btn-group">
-            <button type="submit" class="custom-submit-button">Register</button>
+            <button type="submit" class="custom-submit-button">Save Change</button>
         </div>
     </form>
-    <p class="register-link">already have an account? <a th:href="@{/login}">Login</a></p>
 </div>
 
 </body>

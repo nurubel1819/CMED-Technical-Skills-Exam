@@ -1,5 +1,6 @@
 package com.example.prescription.management.system.service.implementation;
 
+import com.example.prescription.management.system.model.dto.PrescriptionCountPerDayDto;
 import com.example.prescription.management.system.model.entity.MyUser;
 import com.example.prescription.management.system.model.entity.Prescription;
 import com.example.prescription.management.system.repository.PrescriptionRepository;
@@ -49,6 +50,16 @@ public class PrescriptionServiceImplementation implements PrescriptionService {
     }
 
     @Override
+    public List<Prescription> findAllPrescriptionByDoctor(MyUser doctor) {
+        try {
+            return prescriptionRepository.findByDoctor(doctor);
+        }catch (Exception e) {
+            System.out.println("Exception from PrescriptionServiceImplementation.findAllPrescriptionByDoctor = "+e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
     public String deletePrescriptionById(Long id) {
         try {
             prescriptionRepository.deleteById(id);
@@ -85,6 +96,16 @@ public class PrescriptionServiceImplementation implements PrescriptionService {
             return prescriptionRepository.findByDoctorAndPrescriptionDateBetween(doctor,startDate,endDate);
         }catch (Exception e) {
             System.out.println("Exception from PrescriptionServiceImplementation.findAllPrescriptionsBetweenDateRange = "+e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<PrescriptionCountPerDayDto> countPrescriptionsByDateForDoctor(MyUser doctor) {
+        try {
+            return prescriptionRepository.countPrescriptionsByDateForDoctor(doctor);
+        }catch (Exception e) {
+            System.out.println("Exception from PrescriptionServiceImplementation.countPrescriptionsByDateForDoctor = "+e.getMessage());
             return null;
         }
     }

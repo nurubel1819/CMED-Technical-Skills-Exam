@@ -38,6 +38,7 @@ public class SecurityConfiguration {
     };
     public static final String[] PUBLIC_URLS = {
             "/",
+            "/upload-dummy-data",
             "/registration-doctor",
             "/registration-patient",
             "/login",
@@ -52,7 +53,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
-        System.out.println("inside Security Filer Chain");
+        //System.out.println("inside Security Filer Chain");
         http.
                 csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth

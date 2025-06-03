@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Role</title>
+    <link rel="stylesheet" th:href="@{/css/Role.css}">
+</head>
+<body>
+<div class="form-container">
+    <div th:if="${param.message}" class="alert-box" th:text="${param.message}"></div>
+    <h2>Add New Role</h2>
+    <form th:action="@{/admin/add-new-role}" th:object="${roleAddDto}" method="post">
+        <label for="roleName">Role Name</label>
+        <input type="text" th:field="*{roleName}" id="roleName" placeholder="Enter new role" required />
+
+        <button type="submit" class="btn">Add Role</button>
+    </form>
+    <div class="back-link">
+        <a th:href="@{/admin/dashboard}">← Back to Dashboard</a>
+    </div>
+    <!-- Show All Roles of the User -->
+    <h2>Available ROLE in my System</h2>
+    <div class="user-roles">
+        <span th:each="role : ${allSystemRole}">
+        <span class="role-badge" th:text="${role}" th:classappend=" ' ' + ${role.toLowerCase()} ">ROLE</span>
+    </span>
+    </div>
+
+
+</div>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.example.prescription.management.system.thymeleaf;
 
 import com.example.prescription.management.system.helper.RegistrationDataValidation;
+import com.example.prescription.management.system.helper.UploadDummyData;
 import com.example.prescription.management.system.jwt.JwtUtils;
 import com.example.prescription.management.system.model.dto.DoctorRegistrationDto;
 import com.example.prescription.management.system.model.dto.JwtAuthenticationResponseDto;
@@ -43,6 +44,7 @@ public class PublicThymeleaf {
     private final AuthenticationService authenticationService;
     private final JwtUtils jwtUtils;
     private final UserService userService;
+    private final UploadDummyData uploadDummyData;
 
 
     @GetMapping("/")
@@ -50,6 +52,11 @@ public class PublicThymeleaf {
         return "HomePage";
     }
 
+    @GetMapping("/upload-dummy-data")
+    public String uploadDummyData(Model model) {
+        uploadDummyData.uploadSomeUser();
+        return "redirect:/login";
+    }
     @GetMapping("/registration-doctor") //----------------------- Doctor Registration -----------------------
     public String registrationDoctor(Model model) {
         model.addAttribute("DoctorRegistration",new DoctorRegistrationDto());

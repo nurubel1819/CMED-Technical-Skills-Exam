@@ -19,8 +19,6 @@
         <input type="hidden" th:field="*{prescriptionId}" />
 
         <input type="date" id="prescriptionDate" name="prescriptionDate" th:value="${PrescriptionDto.prescriptionDate}" required>
-        <!--<input type="date" id="startDate" name="startDate" required th:value="${filterDto.startDate}">-->
-        <!--<input type="date" th:field="*{prescriptionDate}" required>-->
         <input type="text" th:field="*{patientName}" placeholder="Enter patient's full name" required>
         <input type="number" th:field="*{patientAge}" placeholder="Enter age" required min="0" max="120">
 
