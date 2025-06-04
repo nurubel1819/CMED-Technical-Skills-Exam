@@ -43,4 +43,9 @@ public class RegistrationDataValidation {
 
         else return "valid";
     }
+    public String doctorEditDataValidation(DoctorRegistrationDto dto){
+        if(!dataValidation.isValidGender(dto.getDoctorGender())) return "Gender is not valid";
+        if(!dataValidation.isValidBirthDate(dto.getDateOfBirth())) return "Birth date is not valid, it must be small today";
+        else return "valid";
+    }
 }

@@ -137,6 +137,8 @@ public class PublicThymeleaf {
     }
     @PostMapping("/login")
     public String loginPost(@ModelAttribute("SignInRequestDto") SignInRequestDto dto, HttpServletResponse response) {
+        dto.setPhone(dto.getPhone().replace(" ", "")); // remove space
+        dto.setPassword(dto.getPassword().replace(" ", ""));
         try {
             JwtAuthenticationResponseDto status = authenticationService.signIn(dto);
             if (status.getToken() != null) {

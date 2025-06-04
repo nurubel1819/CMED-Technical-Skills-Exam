@@ -13,15 +13,19 @@
     <header class="dashboard-header">
         <h2><span class="user-name" th:text="'Welcome, Patient '+${patientName}">Doctor Name</span></h2>
         <div class="header-component">
-            <a class="link-button" th:href="@{/patient/account}">My Account</a>
+            <!--<a class="link-button" th:href="@{/patient/account}">My Account</a>-->
             <a class="link-button-logout" th:href="@{/user-logout}">Logout</a>
         </div>
     </header>
 
-    <!-- Options Section -->
-    <div class="dashboard-options">
-        <a th:href="@{/patient/see-hospital-infomation}" class="option-card"> hospital inofrmation </a>
+    <div class="text-info">
+        CMED Health Ltd., a pioneering health-tech startup established in 2016, is revolutionizing the healthcare industry in Bangladesh with its groundbreaking solution, SuSastho Digital Healthcare. This innovative platform is reshaping the way people access healthcare services by providing a comprehensive, scalable, and multi-layered digital healthcare system. With a focus on connecting individuals to early diagnosis, health education, and intervention referrals, CMED Health aims to achieve Health Inclusion (UHC) for Sustainable Development Goals (SDG).
     </div>
+
+    <!-- Options Section -->
+    <!--<div class="dashboard-options">
+        <a th:href="@{/patient/see-hospital-infomation}" class="option-card"> hospital inofrmation </a>
+    </div>-->
 </div>
 
 </body>

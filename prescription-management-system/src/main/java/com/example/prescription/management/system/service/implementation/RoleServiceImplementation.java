@@ -34,7 +34,7 @@ public class RoleServiceImplementation implements RoleService {
 
     @Override
     public Role findRoleByName(String name) {
-        System.out.println("Role name = "+name);
+        name = name.toUpperCase();
         return roleRepository.findByName(name).orElse(null);
     }
 

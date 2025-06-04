@@ -30,7 +30,7 @@ body {
 .container {
     max-width: 800px;
     margin: auto;
-    background: #0fefd1;
+    background: #f1f3f1;
     padding: 25px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -38,7 +38,8 @@ body {
 .container-login {
     max-width: 600px;
     margin: auto;
-    background: #0fefd1;
+    align-items: center;
+    background: #f1f3f1;
     padding: 25px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -52,8 +53,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #00695c;
-    color: white;
+    background-color: #556755;
+    color: #021301;
     padding: 20px;
     border-radius: 8px;
 }
@@ -74,12 +75,12 @@ body {
 }
 
 .option-card {
-    background-color: #3e045e;
-    border: 1px solid #ddd;
+    background-color: #b5c1b5;
+    border: 1px solid #021301;
     padding: 20px;
     text-align: center;
     text-decoration: none;
-    color: white;
+    color: #021301;
     font-size: 18px;
     border-radius: 8px;
     transition: box-shadow 0.3s ease, background-color 0.3s ease;
@@ -103,9 +104,9 @@ h2 {
 }
 /* ----------------------------------- Input ------------------------------------------*/
 input[type=text],input[type = number],input[type=password],input[type=email],input[type=date],select {
-    width: calc(100% - 20px); /* যেন margin যোগ করেও container এর বাইরে না যায় */
+    width: calc(100% - 20px);
     padding: 12px;
-    margin: 5px 5px 5px 5px; /* top: 10px, right: 10px, bottom: 20px, left: 10px */
+    margin: 5px 5px 5px 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
@@ -151,16 +152,18 @@ textarea {
 .btn-home-page {
     display: inline-block;
     padding: 12px 30px;
-    margin: 10px;
     font-size: 16px;
     font-weight: bold;
-    color: white;
-    background-color: #4f46e5;
-    border: none;
-    border-radius: 8px;
+    color: #021301;
+    background-color: #b5c1b5;
     cursor: pointer;
     text-decoration: none;
     transition: background-color 0.3s ease;
+    width: calc(100% - 20px);
+    margin: 5px 5px 5px 5px;
+    border: 1px solid #021301;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .btn-home-page:hover {

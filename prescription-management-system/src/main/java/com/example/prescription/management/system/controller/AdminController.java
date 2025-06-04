@@ -21,16 +21,6 @@ public class AdminController {
 
     private final RoleService roleService;
 
-    @GetMapping("/hello")
-    private ResponseEntity<?> helloAdmin() {
-        return ResponseEntity.ok("Hello i am Admin");
-    }
-
-    @PostMapping("/hi")
-    private ResponseEntity<?> hiAdmin(@RequestBody String name) {
-        return ResponseEntity.ok("Hi "+name);
-    }
-
     @PostMapping("/add-new-role")
     public ResponseEntity<?> addNewRole(@RequestBody RoleDto dto) {
         Role role = roleService.addRole(dto.getName());

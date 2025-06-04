@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Write Prescription</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" th:href="@{/css/BasicCss.css}">
+</head>
+<body>
+
+<div class="container">
+  <div th:if="${param.message}"
+       th:text="${param.message[0]}"
+       th:class="'alert-box ' + (${param.message[0].contains('successful')} ? 'alert-success' : 'alert-error')">
+  </div>
+  <h2>Write a Prescription</h2>
+
+  <form th:action="@{/doctor/write-prescription}" method="post" th:object="${PrescriptionDto}">
+    <input type="date" id="prescriptionDate" name="prescriptionDate" th:value="${PrescriptionDto.prescriptionDate}" required>
+    <input type="text" th:field="*{patientName}" placeholder="Enter patient's full name" required>
+    <input type="number" th:field="*{patientAge}" placeholder="Enter age" required min="0" max="120">
+
+    <select th:field="*{patientGender}" required>
+      <option value="" disabled selected>Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <textarea th:field="*{patientDiagnosis}" rows="3" placeholder="Describe the diagnosis..."></textarea>
+    <textarea th:field="*{patientMedicines}" rows="4" placeholder="Write medicines..."></textarea>
+
+    <input type="date" th:field="*{nextVisitDate}" placeholder="Next Visit Date">
+    <button type="submit" class="custom-submit-button">Save Prescription</button>
+  </form>
+</div>
+
+</body>
+</html>

@@ -11,6 +11,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoleDto {
+    @Schema(hidden = true)
+    private Long userId;
     private String name;
     @Schema(hidden = true)
     private Set<Long> users;

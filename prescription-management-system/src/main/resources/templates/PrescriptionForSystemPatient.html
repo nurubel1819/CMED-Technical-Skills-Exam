@@ -9,7 +9,7 @@
 <body>
 <div class="container-table">
     <div th:if="${param.message}" class="alert-box" th:text="${param.message}"></div>
-    <h2>Users</h2>
+    <h2>All System Patient</h2>
     <!-- Table -->
     <table>
         <thead>
@@ -34,10 +34,7 @@
             <td th:text="${user.gender}"></td>
             <td th:text="${user.address}"></td>
             <td class="action-buttons">
-                <a th:href="@{'/admin/single-user-details/userID/' + ${user.id}}" class="edit-btn">Role Set</a>
-                <a th:href="@{'/admin/delete-user/' + ${user.id}}"
-                   onclick="return confirm('Are you sure you want to delete this prescription?')"
-                   class="delete-btn">Delete</a>
+                <a th:href="@{'/doctor/write-prescription-for-system-patient/userID/' + ${user.id}}" class="edit-btn">Create Prescription</a>
             </td>
         </tr>
         </tbody>

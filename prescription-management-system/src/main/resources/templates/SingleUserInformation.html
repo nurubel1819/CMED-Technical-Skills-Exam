@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Details</title>
+    <style>
+        .back-link {
+            display: inline-block;
+            padding: 10px 18px;
+            background-color: #2c3e50;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-link:hover {
+            background-color: #7a13b1;
+        }
+        .role-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: bold;
+            margin: 5px;
+            color: white;
+            background-color: #021301; /* Default color */
+        }
+
+        /* Specific colors for known roles */
+        .role-badge.admin {
+            background-color: #d32f2f;
+        }
+        .role-badge.doctor {
+            background-color: #7a2d5f;
+        }
+        .role-badge.user {
+            background-color: #0fec08;
+        }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f8;
+            margin: 40px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            background-color: #ffffff;
+            margin: auto;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1976d2;
+        }
+        .info-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .button-group {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .set-button {
+            background-color: #388e3c;
+            color: white;
+        }
+
+        .cancel-button {
+            background-color: #d32f2f;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>User Details</h2>
+
+    <!-- User Information -->
+    <div class="user-info" th:object="${userInformation}">
+        <div><span class="info-label">User ID:</span> <span th:text="${userInformation.id}"></span></div>
+        <div><span class="info-label">Name:</span> <span th:text="${userInformation.name}"></span></div>
+        <div><span class="info-label">Phone Number:</span> <span th:text="${userInformation.phone}"></span></div>
+        <div><span class="info-label">Email:</span> <span th:text="${userInformation.email}"></span></div>
+        <div><span class="info-label">Gender:</span> <span th:text="${userInformation.gender}"></span></div>
+        <div><span class="info-label">Date of Birth:</span> <span th:text="${userInformation.birthday}"></span></div>
+    </div>
+
+    <!-- Show All Roles of the User -->
+    <div class="user-roles">
+        <span class="info-label">Roles:</span>
+        <span th:each="role : ${userRoles}">
+        <span class="role-badge" th:text="${role}" th:classappend=" ' ' + ${role.toLowerCase()} ">ROLE</span>
+    </span>
+    </div>
+
+    <!-- Dropdown to Set New Role -->
+    <div class="set-role">
+        <form th:action="@{/admin/set_user_role}" method="post" th:object="${roleSetDto}">
+            <input type="hidden" name="id" th:field="${roleSetDto.userId}" />
+
+            <label for="role">Select New Role:</label>
+            <select th:field="*{name}" id="role" required>
+                <option value="">-- Select Role --</option>
+                <option th:each="r : ${allSystemRole}" th:value="${r}" th:text="${r}">DOCTOR</option>
+            </select>
+
+            <div class="button-group">
+                <a class="back-link" th:href="@{/admin/see-all-user}">← Back to all user</a>
+                <button type="submit" class="set-button">Set Role</button>
+                <button type="button" class="cancel-button" onclick="history.back()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

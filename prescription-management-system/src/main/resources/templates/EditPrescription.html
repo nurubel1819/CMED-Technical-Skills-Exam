@@ -32,7 +32,7 @@
         <textarea th:field="*{patientDiagnosis}" rows="3" placeholder="Describe the diagnosis..."></textarea>
         <textarea th:field="*{patientMedicines}" rows="4" placeholder="Write medicines..."></textarea>
 
-        <input type="date" id="nextVisitDate" name="nextVisitDate" th:value="${PrescriptionDto.nextVisitDate}" required>
+        <input type="date" id="nextVisitDate" name="nextVisitDate" th:value="${PrescriptionDto.nextVisitDate}">
         <button type="submit" class="custom-submit-button">Save Change</button>
     </form>
 

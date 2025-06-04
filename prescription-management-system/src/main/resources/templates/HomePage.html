@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>AlphaHealth Home</title>
+    <title>Home</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/BasicCss.css}">
 </head>
 <body>
 
-<div class="container">
-    <h1>Welcome to AlphaHealth</h1>
-    <a th:href="@{/upload-dummy-data}" class="btn-home-page">Login With Dummy Data</a>
+<div class="container" align="center">
+   <!-- <h1>Welcome to CMED Helth Ltd</h1>-->
+    <img th:src="@{/images/cmed.png}" alt="Doctor" width="600" height="150">
+    <a th:href="@{/upload-dummy-data}" class="btn-home-page">Login With Dummy Data First Time</a>
     <a th:href="@{/login}" class="btn-home-page">Login</a>
     <a th:href="@{/registration-doctor}" class="btn-home-page">Doctor Registration</a>
     <a th:href="@{/registration-patient}" class="btn-home-page">Patient Registration</a>

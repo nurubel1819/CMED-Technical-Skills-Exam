@@ -1,5 +1,6 @@
 package com.example.prescription.management.system.thymeleaf;
 
+import com.example.prescription.management.system.helper.DataValidation;
 import com.example.prescription.management.system.model.dto.*;
 import com.example.prescription.management.system.model.mapper.DoctorMapper;
 import com.example.prescription.management.system.model.mapper.PrescriptionMapper;
@@ -8,6 +9,7 @@ import com.example.prescription.management.system.jwt.JwtUtils;
 import com.example.prescription.management.system.model.entity.MyUser;
 import com.example.prescription.management.system.model.entity.Prescription;
 import com.example.prescription.management.system.repository.PrescriptionRepository;
+import com.example.prescription.management.system.repository.UserRepository;
 import com.example.prescription.management.system.service.ExternalApiService;
 import com.example.prescription.management.system.service.PrescriptionService;
 import com.example.prescription.management.system.service.UserService;
@@ -18,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Controller
@@ -28,10 +31,12 @@ public class DoctorThymeleaf {
     private final JwtUtils jwtUtils;
     private final UserService userService;
     private final RegistrationDataValidation validation;
+    private final DataValidation dataValidation;
     private final PrescriptionMapper prescriptionMapper;
     private final PrescriptionService prescriptionService;
     private final ExternalApiService externalApiService;
     private final DoctorMapper doctorMapper;
+    private final UserRepository userRepository;
 
 
     @GetMapping("/dashboard")
@@ -110,6 +115,10 @@ public class DoctorThymeleaf {
     public String updatePrescription(@ModelAttribute("PrescriptionDto") PrescriptionDto dto, Model model,HttpServletRequest request){
         System.out.println("id = "+dto.getPrescriptionId()+" Date = "+dto.getPrescriptionDate()+"Name = "+dto.getPatientName());
         try {
+            String validationResult = validation.prescriptionValidation(dto);
+            if(!validationResult.equals("valid"))
+                return "redirect:/doctor/write-prescription?message="+validationResult;
+
             Prescription prescription = prescriptionService.findPrescriptionById(dto.getPrescriptionId());
             prescription = prescriptionMapper.updatePrescriptionInfo(prescription,dto);
             prescription = prescriptionService.updatePrescription(prescription);
@@ -231,6 +240,10 @@ public class DoctorThymeleaf {
     @PostMapping("/edit-personal-information")
     public String editPersonalInformationPost(@ModelAttribute("DoctorRegistrationDto") DoctorRegistrationDto dto, Model model,HttpServletRequest request){
         try {
+            String validationResult = validation.doctorEditDataValidation(dto);
+            if(!validationResult.equals("valid"))
+                return "redirect:/doctor/edit-personal-information?message="+validationResult;
+
             String token = jwtUtils.getJwtFromCookies(request);
             if(token!=null) {
                 Long userId = jwtUtils.extractUserId(token);
@@ -246,6 +259,36 @@ public class DoctorThymeleaf {
         }catch (Exception e){
             System.out.println("Exception form Doctor Thymeleaf = "+e.getMessage());
             return "redirect:/user-logout?message=Server error, Not update";
+        }
+    }
+    @GetMapping("/see-all-patient") // ---------------------------------- see all patient----------------
+    public String seeAllPatient(Model model, HttpServletRequest request){
+        try {
+            String jwt = jwtUtils.getJwtFromCookies(request);
+            if(jwt==null) return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
+            if(!dataValidation.validUserRole("DOCTOR",jwt)) return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
+            List<MyUser> allPatient = userRepository.findUsersByRoleName("PATIENT");
+            model.addAttribute("allUsers",allPatient);
+            return "PrescriptionForSystemPatient";
+        }catch (Exception e){
+            System.out.println("Exception form see all user = "+e.getMessage());
+            return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
+        }
+    }
+    @GetMapping("/write-prescription-for-system-patient/userID/{patientId}")
+    public String createPrescriptionForSystemPatient(@PathVariable("patientId") Long patientId, Model model, HttpServletRequest request){
+        try {
+            MyUser patientUser = userService.findUserById(patientId);
+            PrescriptionDto dto = new PrescriptionDto();
+            dto.setPrescriptionDate(LocalDate.now());
+            dto.setPatientName(patientUser.getName());
+            dto.setPatientAge(Period.between(patientUser.getBirthday(), LocalDate.now()).getYears());
+            dto.setPatientGender(patientUser.getGender());
+            model.addAttribute("PrescriptionDto",dto);
+            return "PrescriptionFromForSystemPatient";
+        }catch (Exception e){
+            System.out.println("Exception form Doctor Thymeleaf = "+e.getMessage());
+            return "redirect:/user-logout?message=Server error, Prescription not delete";
         }
     }
 }
