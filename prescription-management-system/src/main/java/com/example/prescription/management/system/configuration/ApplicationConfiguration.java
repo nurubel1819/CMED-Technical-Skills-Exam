@@ -2,6 +2,7 @@ package com.example.prescription.management.system.configuration;
 
 import com.example.prescription.management.system.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,8 +27,14 @@ public class ApplicationConfiguration {
         provider.setPasswordEncoder(passwordEncoder());
         return new ProviderManager(provider);
     }
-    @Bean
+    /*@Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }*/
+
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
     }
+
 }

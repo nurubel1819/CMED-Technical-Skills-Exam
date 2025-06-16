@@ -57,7 +57,8 @@ public class DoctorThymeleaf {
     }
     @GetMapping("/my-prescriptions") //----------------- See My Prescriptions ----------------------
     public String myPrescriptions(Model model, HttpServletRequest request) {
-        return loadPrescriptions(LocalDate.now().minusMonths(1), LocalDate.now(), model, request);
+        //return loadPrescriptions(LocalDate.now().minusMonths(1), LocalDate.now(), model, request);
+        return loadPrescriptions(LocalDate.now().withDayOfMonth(1),LocalDate.now(),model,request);
     }
 
     @PostMapping("/my-prescriptions")
@@ -209,17 +210,30 @@ public class DoctorThymeleaf {
             return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
         }
     }
-    @GetMapping("/consume-get-api") //--------------------------- Consume REST API ----------------------
-    public String consumeGetApi(Model model,HttpServletRequest request){
-        try {
-            List<ExternalDataDto> externalApiData = externalApiService.getAllPosts();
-            model.addAttribute("externalApiData",externalApiData);
-            return "ExternalApiDataTable";
-        }catch (Exception e){
-            System.out.println("Exception form Doctor Thymeleaf = "+e.getMessage());
-            return "redirect:/user-logout?message=Server error, Prescription not delete";
-        }
+
+    @GetMapping("/consume-get-api")
+    public String consumeGetApi(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+
+        ExternalPageDto result = externalApiService.getPosts(page, size);
+
+        model.addAttribute("externalApiData", result.data());
+        model.addAttribute("currentPage", result.currentPage());
+        model.addAttribute("totalPages", result.totalPages());
+        model.addAttribute("size", size);
+
+        int prevPage = page > 1 ? page - 1 : 1;
+        int nextPage = page < result.totalPages() ? page + 1 : result.totalPages();
+
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("prevPage", prevPage);
+
+        return "ExternalApiDataTable";
     }
+
+
     @GetMapping("/edit-personal-information") //--------------------------- Edit Personal Information ----------------------
     public String editPersonalInformation(Model model,HttpServletRequest request){
         try {

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @SecurityRequirement(name = "bearerAuth")
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/api/v1/admin")
 @RequiredArgsConstructor
 public class AdminController {
 

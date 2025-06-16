@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/public")
+@RequestMapping("/api/v1/public")
 @RequiredArgsConstructor
 public class PublicController {
     private final AuthenticationService authenticationService;

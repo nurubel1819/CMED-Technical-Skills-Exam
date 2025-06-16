@@ -42,7 +42,7 @@ public class GetApiController {
         }
     }
 
-    @GetMapping("/consume-REST-API")
+    /*@GetMapping("/api/v1/consume-REST-API")
     public ResponseEntity<?> getExternalApiCall() {
         try {
             List<ExternalDataDto> posts = externalApiService.getAllPosts();
@@ -51,5 +51,5 @@ public class GetApiController {
             System.out.println("Exception form get api controller = "+e.getMessage());
             return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         }
-    }
+    }*/
 }

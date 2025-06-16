@@ -22,6 +22,9 @@
         </div>
         <button type="submit">Filter</button>
     </form>
+    <form th:action="@{/doctor/dashboard}" method="get">
+        <button class="delete-btn" type="submit">Go to Doctor Dashboard</button>
+    </form>
 
     <script>
         function validateDateRange() {

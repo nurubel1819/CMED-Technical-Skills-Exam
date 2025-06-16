@@ -121,7 +121,7 @@ public class PublicThymeleaf {
                     if (roles.contains("ADMIN")) {
                         return "redirect:/admin/dashboard";
                     } else if (roles.contains("DOCTOR")) {
-                        return "redirect:/doctor/dashboard";
+                        return "redirect:/doctor/my-prescriptions";
                     } else if (roles.contains("PATIENT")) {
                         return "redirect:/patient/dashboard";
                     } else {
@@ -154,7 +154,7 @@ public class PublicThymeleaf {
                 if (roles.contains("ADMIN")) {
                     return "redirect:/admin/dashboard";
                 } else if (roles.contains("DOCTOR")) {
-                    return "redirect:/doctor/dashboard";
+                    return "redirect:/doctor/my-prescriptions";
                 } else if (roles.contains("PATIENT")) {
                     return "redirect:/patient/dashboard";
                 } else {
