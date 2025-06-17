@@ -18,6 +18,7 @@
     <form th:action="@{/doctor/update-prescription}" method="post" th:object="${PrescriptionDto}">
         <input type="hidden" th:field="*{prescriptionId}" />
 
+        <label >Prescription Date (default today)</label>
         <input type="date" id="prescriptionDate" name="prescriptionDate" th:value="${PrescriptionDto.prescriptionDate}" required>
         <input type="text" th:field="*{patientName}" placeholder="Enter patient's full name" required>
         <input type="number" th:field="*{patientAge}" placeholder="Enter age" required min="0" max="120">
@@ -32,6 +33,7 @@
         <textarea th:field="*{patientDiagnosis}" rows="3" placeholder="Describe the diagnosis..."></textarea>
         <textarea th:field="*{patientMedicines}" rows="4" placeholder="Write medicines..."></textarea>
 
+        <label > Next Visit Date</label>
         <input type="date" id="nextVisitDate" name="nextVisitDate" th:value="${PrescriptionDto.nextVisitDate}">
         <button type="submit" class="custom-submit-button">Save Change</button>
     </form>

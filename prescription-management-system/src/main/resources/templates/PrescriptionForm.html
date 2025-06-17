@@ -16,7 +16,8 @@
     <h2>Write a Prescription</h2>
 
     <form th:action="@{/doctor/write-prescription}" method="post" th:object="${PrescriptionDto}">
-        <input type="date" th:field="*{prescriptionDate}" required>
+        <label > Prescription Date (default today)</label>
+        <input type="date" th:field="*{prescriptionDate}" placeholder="Today date" required>
         <input type="text" th:field="*{patientName}" placeholder="Enter patient's full name" required>
         <input type="number" th:field="*{patientAge}" placeholder="Enter age" required min="0" max="120">
 
@@ -30,6 +31,7 @@
         <textarea th:field="*{patientDiagnosis}" rows="3" placeholder="Describe the diagnosis..."></textarea>
         <textarea th:field="*{patientMedicines}" rows="4" placeholder="Write medicines..."></textarea>
 
+        <label > Next visit Date</label>
         <input type="date" th:field="*{nextVisitDate}" placeholder="Next Visit Date">
         <button type="submit" class="custom-submit-button">Save Prescription</button>
     </form>

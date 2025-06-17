@@ -5,7 +5,9 @@ import com.example.prescription.management.system.jwt.JwtUtils;
 import com.example.prescription.management.system.model.dto.RoleDto;
 import com.example.prescription.management.system.model.entity.MyUser;
 import com.example.prescription.management.system.model.entity.Prescription;
+import com.example.prescription.management.system.model.entity.PrescriptionRecovery;
 import com.example.prescription.management.system.model.entity.Role;
+import com.example.prescription.management.system.repository.PrescriptionRecoveryRepository;
 import com.example.prescription.management.system.repository.PrescriptionRepository;
 import com.example.prescription.management.system.repository.UserRepository;
 import com.example.prescription.management.system.service.RoleService;
@@ -30,6 +32,7 @@ public class AdminThymeleaf {
     private final UserRepository userRepository;
     private final PrescriptionRepository prescriptionRepository;
     private final RoleService roleService;
+    private final PrescriptionRecoveryRepository prescriptionRecoveryRepository;
 
     @GetMapping("/dashboard")
     public String adminDashboard(Model model, HttpServletRequest request){
@@ -96,6 +99,21 @@ public class AdminThymeleaf {
             return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
         }
     }
+    @GetMapping("/see-all-prescription-recovery")
+    public String seeAllPrescriptionRecovery(Model model, HttpServletRequest request){
+        try {
+            String jwt = jwtUtils.getJwtFromCookies(request);
+            if(jwt==null) return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
+            if(!validation.validUserRole("ADMIN",jwt)) return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
+            //List<Prescription> allPrescription = prescriptionRepository.findAll();
+            List<PrescriptionRecovery> allPrescription = prescriptionRecoveryRepository.findAll();
+            model.addAttribute("myAllPrescription",allPrescription);
+            return "ShowPrescriptionRecovery";
+        }catch (Exception e){
+            System.out.println("Exception form see all user = "+e.getMessage());
+            return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
+        }
+    }
     @GetMapping("/delete-user/{userId}")
     public String deleteUser(@PathVariable("userId") Long userId, HttpServletRequest request){
         try {
@@ -103,7 +121,7 @@ public class AdminThymeleaf {
             if(jwt==null) return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
             if(!validation.validUserRole("ADMIN",jwt)) return "redirect:/user-logout?message=User not found. Please check your phone and try again.";
             userService.deleteUserById(userId);
-            return "redirect:/admin/see-all-user?message=User deleted successfully";
+            return "redirect:/admin/dashboard";
         }catch (Exception e){
             System.out.println("Exception form see all user = "+e.getMessage());
             return "redirect:/user-logout?message=User not found. Please check your phone and try again.";

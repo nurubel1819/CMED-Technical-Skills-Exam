@@ -1,5 +1,6 @@
 package com.example.prescription.management.system.helper;
 
+import com.example.prescription.management.system.enums.Gender;
 import com.example.prescription.management.system.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -28,11 +29,21 @@ public class DataValidation {
         if (phone == null) return false;
         return BD_PHONE_PATTERN.matcher(phone).matches();
     }
-    public boolean isValidGender(String gender) {
+    /*public boolean isValidGender(String gender) {
         return gender != null &&
                 (gender.equalsIgnoreCase("Male") ||
                         gender.equalsIgnoreCase("Female") ||
                         gender.equalsIgnoreCase("Other"));
+    }*/
+    public boolean isValidGender(String gender) {
+        if (gender == null) return false;
+
+        try {
+            Gender.valueOf(gender.toUpperCase());
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
     public boolean isValidBirthDate(LocalDate date) {
         return date != null && date.isBefore(LocalDate.now());

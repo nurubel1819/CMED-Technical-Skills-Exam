@@ -49,6 +49,6 @@ public class MyUser {
     )
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "doctor"/*, cascade = CascadeType.ALL, orphanRemoval = true*/)
+    @OneToMany(mappedBy = "doctor", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, orphanRemoval = true)
     private List<Prescription> prescriptions = new ArrayList<>();
 }

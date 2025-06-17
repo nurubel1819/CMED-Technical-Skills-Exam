@@ -8,6 +8,8 @@ import com.example.prescription.management.system.model.entity.Prescription;
 import com.example.prescription.management.system.model.mapper.DoctorMapper;
 import com.example.prescription.management.system.model.mapper.PatientMapper;
 import com.example.prescription.management.system.model.mapper.PrescriptionMapper;
+import com.example.prescription.management.system.model.mapper.PrescriptionRecoveryMapper;
+import com.example.prescription.management.system.repository.PrescriptionRecoveryRepository;
 import com.example.prescription.management.system.repository.UserRepository;
 import com.example.prescription.management.system.service.AuthenticationService;
 import com.example.prescription.management.system.service.PrescriptionService;
@@ -25,8 +27,9 @@ public class UploadDummyData {
     private final DoctorMapper doctorMapper;
     private final PrescriptionMapper prescriptionMapper;
     private final PrescriptionService prescriptionService;
-    private final UserService userService;
     private final AuthenticationService authenticationService;
+    private final PrescriptionRecoveryRepository prescriptionRecoveryRepository;
+    private final PrescriptionRecoveryMapper  prescriptionRecoveryMapper;
 
     public void uploadSomeUser(){
         if(userRepository.count()==0)
@@ -101,6 +104,8 @@ public class UploadDummyData {
             Prescription prescription = prescriptionMapper.mapToEntity(prescriptionDto);
             prescriptionService.savePrescription(prescription,doctor);
 
+            prescriptionRecoveryRepository.save(prescriptionRecoveryMapper.mapToEntity(prescriptionDto,doctor.getName()));
+
             //create patient 2
             prescriptionDto.setPrescriptionDate(LocalDate.of(2025,6,2));
             prescriptionDto.setPatientName("Zakir Khan");
@@ -113,6 +118,8 @@ public class UploadDummyData {
             prescription = prescriptionMapper.mapToEntity(prescriptionDto);
             prescriptionService.savePrescription(prescription,doctor);
 
+            prescriptionRecoveryRepository.save(prescriptionRecoveryMapper.mapToEntity(prescriptionDto,doctor.getName()));
+
             //create patient 3
             prescriptionDto.setPrescriptionDate(LocalDate.of(2025,6,3));
             prescriptionDto.setPatientName("Asma Akter");
@@ -123,6 +130,8 @@ public class UploadDummyData {
 
             prescription = prescriptionMapper.mapToEntity(prescriptionDto);
             prescriptionService.savePrescription(prescription,doctor);
+
+            prescriptionRecoveryRepository.save(prescriptionRecoveryMapper.mapToEntity(prescriptionDto,doctor.getName()));
 
             //create patient 4
             prescriptionDto.setPrescriptionDate(LocalDate.of(2025,6,3));
@@ -136,6 +145,8 @@ public class UploadDummyData {
             prescription = prescriptionMapper.mapToEntity(prescriptionDto);
             prescriptionService.savePrescription(prescription,doctor);
 
+            prescriptionRecoveryRepository.save(prescriptionRecoveryMapper.mapToEntity(prescriptionDto,doctor.getName()));
+
             //create patient 5
             prescriptionDto.setPrescriptionDate(LocalDate.of(2025,6,1));
             prescriptionDto.setPatientName("Shorna Akter");
@@ -147,6 +158,8 @@ public class UploadDummyData {
 
             prescription = prescriptionMapper.mapToEntity(prescriptionDto);
             prescriptionService.savePrescription(prescription,doctor);
+
+            prescriptionRecoveryRepository.save(prescriptionRecoveryMapper.mapToEntity(prescriptionDto,doctor.getName()));
 
             //create second doctor
             doctorDto.setDoctorPhone("01753278406");
@@ -175,6 +188,7 @@ public class UploadDummyData {
             prescription = prescriptionMapper.mapToEntity(prescriptionDto);
             prescriptionService.savePrescription(prescription,doctor);
 
+            prescriptionRecoveryRepository.save(prescriptionRecoveryMapper.mapToEntity(prescriptionDto,doctor.getName()));
         }
     }
 }

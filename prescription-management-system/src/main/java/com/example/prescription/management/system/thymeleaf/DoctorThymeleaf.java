@@ -8,6 +8,8 @@ import com.example.prescription.management.system.helper.RegistrationDataValidat
 import com.example.prescription.management.system.jwt.JwtUtils;
 import com.example.prescription.management.system.model.entity.MyUser;
 import com.example.prescription.management.system.model.entity.Prescription;
+import com.example.prescription.management.system.model.mapper.PrescriptionRecoveryMapper;
+import com.example.prescription.management.system.repository.PrescriptionRecoveryRepository;
 import com.example.prescription.management.system.repository.PrescriptionRepository;
 import com.example.prescription.management.system.repository.UserRepository;
 import com.example.prescription.management.system.service.ExternalApiService;
@@ -37,6 +39,8 @@ public class DoctorThymeleaf {
     private final ExternalApiService externalApiService;
     private final DoctorMapper doctorMapper;
     private final UserRepository userRepository;
+    private final PrescriptionRecoveryRepository prescriptionRecoveryRepository;
+    private final PrescriptionRecoveryMapper prescriptionRecoveryMapper;
 
 
     @GetMapping("/dashboard")
@@ -168,6 +172,7 @@ public class DoctorThymeleaf {
             Prescription prescription = prescriptionMapper.mapToEntity(dto);
             prescription = prescriptionService.savePrescription(prescription,doctor);
             if(prescription != null) {
+                prescriptionRecoveryRepository.save(prescriptionRecoveryMapper.mapToEntity(dto,doctor.getName()));
                 return "redirect:/doctor/dashboard?message=Patient registration successful";
             }
             else return "redirect:/doctor/write-prescription?message=Server error, Patient not save";
