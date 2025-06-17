@@ -32,16 +32,16 @@
   </table>
   <div class="pagination">
     <a th:if="${currentPage > 1}"
-       th:href="@{/consume-get-api(page=${prevPage}, size=${size})}">« Prev</a>
+       th:href="@{/doctor/consume-get-api(page=${prevPage}, size=${size})}">« Prev</a>
 
     <span th:each="i : ${#numbers.sequence(1, totalPages)}">
-    <a th:href="@{/consume-get-api(page=${i}, size=${size})}"
+    <a th:href="@{/doctor/consume-get-api(page=${i}, size=${size})}"
        th:text="${i}"
        th:classappend="${i == currentPage} ? 'active' : ''"></a>
   </span>
 
     <a th:if="${currentPage < totalPages}"
-       th:href="@{/consume-get-api(page=${nextPage}, size=${size})}">Next »</a>
+       th:href="@{/doctor/consume-get-api(page=${nextPage}, size=${size})}">Next »</a>
   </div>
 
 

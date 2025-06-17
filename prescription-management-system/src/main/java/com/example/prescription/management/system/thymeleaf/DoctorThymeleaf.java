@@ -216,23 +216,29 @@ public class DoctorThymeleaf {
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             Model model) {
+        System.out.println("Inside consumeGetApi()");
 
-        ExternalPageDto result = externalApiService.getPosts(page, size);
+        try {
+            ExternalPageDto result = externalApiService.getPosts(page, size);
 
-        model.addAttribute("externalApiData", result.data());
-        model.addAttribute("currentPage", result.currentPage());
-        model.addAttribute("totalPages", result.totalPages());
-        model.addAttribute("size", size);
+            model.addAttribute("externalApiData", result.data());
+            model.addAttribute("currentPage", result.currentPage());
+            model.addAttribute("totalPages", result.totalPages());
+            model.addAttribute("size", size);
 
-        int prevPage = page > 1 ? page - 1 : 1;
-        int nextPage = page < result.totalPages() ? page + 1 : result.totalPages();
+            int prevPage = page > 1 ? page - 1 : 1;
+            int nextPage = page < result.totalPages() ? page + 1 : result.totalPages();
 
-        model.addAttribute("nextPage", nextPage);
-        model.addAttribute("prevPage", prevPage);
+            model.addAttribute("nextPage", nextPage);
+            model.addAttribute("prevPage", prevPage);
 
-        return "ExternalApiDataTable";
+            System.out.println("page = "+page+" size = "+size);
+            return "ExternalApiDataTable";
+        }catch (Exception e) {
+            System.out.println("Exception from Doctor Dashboard = "+e.getMessage());
+            return "redirect:/doctor/dashboard?message="+e.getMessage();
+        }
     }
-
 
     @GetMapping("/edit-personal-information") //--------------------------- Edit Personal Information ----------------------
     public String editPersonalInformation(Model model,HttpServletRequest request){
