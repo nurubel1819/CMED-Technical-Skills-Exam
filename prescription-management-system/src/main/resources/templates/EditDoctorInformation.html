@@ -26,6 +26,7 @@
             <option value="Female">Female</option>
             <option value="Other">Other</option>
         </select>
+        <label >Date of Birth</label>
         <input type="date" id="dateOfBirth" name="dateOfBirth" th:value="${doctorDto.dateOfBirth}" required>
         <input type="text" th:field="*{specialization}" placeholder="Specialization" required>
         <input type="text" th:field="*{experience}" placeholder="Experience Example : 10 year" required>

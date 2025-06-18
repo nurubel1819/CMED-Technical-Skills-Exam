@@ -125,7 +125,7 @@ public class UploadDummyData {
             prescriptionDto.setPatientName("Asma Akter");
             prescriptionDto.setPatientAge(24);
             prescriptionDto.setPatientGender("Female");
-            prescriptionDto.setPatientDiagnosis("Fiver");
+            prescriptionDto.setPatientDiagnosis("Fever");
             prescriptionDto.setPatientMedicines("No medicines needed");
 
             prescription = prescriptionMapper.mapToEntity(prescriptionDto);
@@ -152,7 +152,7 @@ public class UploadDummyData {
             prescriptionDto.setPatientName("Shorna Akter");
             prescriptionDto.setPatientAge(16);
             prescriptionDto.setPatientGender("Female");
-            prescriptionDto.setPatientDiagnosis("Fiver");
+            prescriptionDto.setPatientDiagnosis("Fever");
             prescriptionDto.setPatientMedicines("Napa 500 mg");
             prescriptionDto.setNextVisitDate(LocalDate.of(2025,6,10));
 
@@ -181,7 +181,7 @@ public class UploadDummyData {
             prescriptionDto.setPatientName("Shorna Akter Moni");
             prescriptionDto.setPatientAge(17);
             prescriptionDto.setPatientGender("Female");
-            prescriptionDto.setPatientDiagnosis("Fiver");
+            prescriptionDto.setPatientDiagnosis("Fever");
             prescriptionDto.setPatientMedicines("Napa 500 mg");
             prescriptionDto.setNextVisitDate(LocalDate.of(2025,6,10));
 

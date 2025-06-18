@@ -23,10 +23,8 @@ public class PrescriptionServiceImplementation implements PrescriptionService {
     @Override
     public Prescription savePrescription(Prescription prescription, MyUser doctor) {
         try {
-            prescription.setDoctor(doctor);
+            prescription.setDoctorId(doctor.getId());
             prescription = prescriptionRepository.save(prescription);
-            doctor.getPrescriptions().add(prescription);
-            userRepository.save(doctor);
             return prescription;
         }catch (Exception e) {
             System.out.println("Exception from PrescriptionServiceImplementation.savePrescription = "+e.getMessage());
@@ -52,7 +50,8 @@ public class PrescriptionServiceImplementation implements PrescriptionService {
     @Override
     public List<Prescription> findAllPrescriptionByDoctor(MyUser doctor) {
         try {
-            return prescriptionRepository.findByDoctor(doctor);
+            return prescriptionRepository.findAllByDoctorId(doctor.getId());
+            //return prescriptionRepository.findByDoctor(doctor);
         }catch (Exception e) {
             System.out.println("Exception from PrescriptionServiceImplementation.findAllPrescriptionByDoctor = "+e.getMessage());
             return null;
@@ -93,7 +92,8 @@ public class PrescriptionServiceImplementation implements PrescriptionService {
     @Override
     public List<Prescription> findOneDoctorAllPrescriptionInDateRange(MyUser doctor,LocalDate startDate, LocalDate endDate) {
         try {
-            return prescriptionRepository.findByDoctorAndPrescriptionDateBetween(doctor,startDate,endDate);
+            return prescriptionRepository.findByDoctorIdAndPrescriptionDateBetween(doctor.getId(),startDate,endDate);
+            //return prescriptionRepository.findByDoctorAndPrescriptionDateBetween(doctor,startDate,endDate);
         }catch (Exception e) {
             System.out.println("Exception from PrescriptionServiceImplementation.findAllPrescriptionsBetweenDateRange = "+e.getMessage());
             return null;
@@ -103,7 +103,8 @@ public class PrescriptionServiceImplementation implements PrescriptionService {
     @Override
     public List<PrescriptionCountPerDayDto> countPrescriptionsByDateForDoctor(MyUser doctor) {
         try {
-            return prescriptionRepository.countPrescriptionsByDateForDoctor(doctor);
+            return prescriptionRepository.countPrescriptionsByDateForDoctor(doctor.getId());
+            //return prescriptionRepository.countPrescriptionsByDateForDoctor(doctor);
         }catch (Exception e) {
             System.out.println("Exception from PrescriptionServiceImplementation.countPrescriptionsByDateForDoctor = "+e.getMessage());
             return null;

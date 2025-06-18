@@ -5,6 +5,7 @@ import com.example.prescription.management.system.model.dto.ExternalDataDto;
 import com.example.prescription.management.system.model.dto.PrescriptionDto;
 import com.example.prescription.management.system.model.entity.MyUser;
 import com.example.prescription.management.system.model.mapper.PrescriptionMapper;
+import com.example.prescription.management.system.repository.PrescriptionRepository;
 import com.example.prescription.management.system.service.ExternalApiService;
 import com.example.prescription.management.system.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class GetApiController {
     private final JwtUtils jwtUtils;
     private final PrescriptionMapper prescriptionMapper;
     private final ExternalApiService externalApiService;
+    private final PrescriptionRepository prescriptionRepository;
 
     @GetMapping("/API/v1/prescription")
     public ResponseEntity<?> getPrescription(@RequestParam("jwt token") String jwt) {
@@ -34,7 +36,8 @@ public class GetApiController {
             Long doctorId = jwtUtils.extractUserId(jwt);
             MyUser doctor = userService.findUserById(doctorId);
             if(doctor == null) return ResponseEntity.badRequest().body(Map.of("message", "User not found"));
-            List<PrescriptionDto> prescriptions = doctor.getPrescriptions().stream().map(prescriptionMapper::mapToDto).toList();
+            List<PrescriptionDto> prescriptions = prescriptionRepository.findAllByDoctorId(doctorId).stream().map(prescriptionMapper::mapToDto).toList();
+            //List<PrescriptionDto> prescriptions = doctor.getPrescriptions().stream().map(prescriptionMapper::mapToDto).toList();
             return ResponseEntity.ok(prescriptions);
         }catch (Exception e){
             System.out.println("Exception form get api controller = "+e.getMessage());
@@ -42,7 +45,7 @@ public class GetApiController {
         }
     }
 
-    /*@GetMapping("/api/v1/consume-REST-API")
+    @GetMapping("/api/v1/consume-REST-API")
     public ResponseEntity<?> getExternalApiCall() {
         try {
             List<ExternalDataDto> posts = externalApiService.getAllPosts();
@@ -51,5 +54,5 @@ public class GetApiController {
             System.out.println("Exception form get api controller = "+e.getMessage());
             return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         }
-    }*/
+    }
 }

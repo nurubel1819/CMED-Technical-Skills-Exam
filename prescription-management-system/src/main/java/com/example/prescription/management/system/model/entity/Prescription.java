@@ -31,7 +31,5 @@ public class Prescription {
     private String patientMedicines; // text area
     private LocalDate nextVisitDate; // valid optional
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id", nullable = false)
-    private MyUser doctor;
+    private Long doctorId;
 }

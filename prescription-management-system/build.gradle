@@ -48,6 +48,9 @@ dependencies {
 
 	//H2 database Run time database
 	implementation 'com.h2database:h2'
+
+	//pdf generate
+	implementation 'com.itextpdf:itext7-core:8.0.2'
 }
 
 tasks.named('test') {

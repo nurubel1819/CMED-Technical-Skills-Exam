@@ -27,10 +27,6 @@ public class ApplicationConfiguration {
         provider.setPasswordEncoder(passwordEncoder());
         return new ProviderManager(provider);
     }
-    /*@Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }*/
 
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {

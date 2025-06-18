@@ -23,7 +23,7 @@
         <button type="submit">Filter</button>
     </form>
     <form th:action="@{/doctor/dashboard}" method="get">
-        <button class="delete-btn" type="submit">Go to Doctor Dashboard</button>
+        <button class="go-to-button" type="submit">Go to Doctor Dashboard</button>
     </form>
 
     <script>
@@ -55,9 +55,10 @@
             <th>Age</th>
             <th>Gender</th>
             <th>Diagnosis</th>
-            <td>Next Visiting Date</td>
             <th>Medicines</th>
+            <td>Next Visiting Date</td>
             <th>Actions</th>
+            <td>Download</td>
         </tr>
         </thead>
         <tbody>
@@ -75,6 +76,9 @@
                 <a th:href="@{'/doctor/prescription/delete/' + ${prescription.prescriptionId}}"
                    onclick="return confirm('Are you sure you want to delete this prescription?')"
                    class="delete-btn">Delete</a>
+            </td>
+            <td class="action-buttons">
+                <a th:href="@{'/doctor/download-prescription/' + ${prescription.prescriptionId}}" class="edit-btn">Download</a>
             </td>
         </tr>
         </tbody>
